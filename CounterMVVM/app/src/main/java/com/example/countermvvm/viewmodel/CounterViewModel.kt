@@ -17,7 +17,7 @@ class CounterViewModel {
 
     fun incrementCounter() {
         counter.increment()
-        _count.value = counter.getCount()
         Log.d("CounterViewModel", "Counter incremented: new count = ${counter.getCount()}")
+        _count.value = counter.getCount()
     }
 }

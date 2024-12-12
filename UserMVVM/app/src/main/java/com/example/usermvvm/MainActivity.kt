@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         // Set initial values for user
         userViewModel.name.set("Rick Deckard")
-        userViewModel.dateOfBirth.set("01/01/1990")
+        userViewModel.dateOfBirth = "01/01/1990"
 
     }
     fun updateUserInfo(view: View) {
@@ -35,6 +35,6 @@ class MainActivity : AppCompatActivity() {
         val name = userViewModel.name.get()?.trim() ?: ""
         val datePicker = findViewById<DatePicker>(R.id.dateOfBirthPicker)
         Log.d("MainActivity", "Updating user info with name: $name, date of birth: ${datePicker.dayOfMonth}/${datePicker.month}/${datePicker.year}")
-        userViewModel.updateUserInfo(name, datePicker)
+        userViewModel.updateUserInfo(datePicker)
     }
 }

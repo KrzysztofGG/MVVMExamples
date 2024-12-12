@@ -4,18 +4,21 @@ import android.util.Log
 import android.widget.DatePicker
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
+import com.example.usermvvm.model.User
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
 class UserViewModel : ViewModel() {
 
+    private val user = User()
+
     val name = ObservableField<String>()
-    val dateOfBirth = ObservableField<String>()
+    var dateOfBirth : String = ""
     val userInfo = ObservableField<String>()
 
-    fun updateUserInfo(name: String, datePicker: DatePicker) {
-        this.name.set(name)
+    fun updateUserInfo(datePicker: DatePicker) {
+        this.user.setName(name.get() ?: "")
 
         val year = datePicker.year
         val month = datePicker.month
@@ -23,13 +26,15 @@ class UserViewModel : ViewModel() {
 
         val formattedDate = this.formatDateToString(dayOfMonth, month, year)
 
-        this.dateOfBirth.set(formattedDate)
-        Log.d("UserViewModel", "Updated name: ${this.name.get()}, date of birth: ${dateOfBirth.get()}")
+        this.dateOfBirth = formattedDate
+
+        this.user.setDateOfBirth(formattedDate)
+        Log.d("UserViewModel", "Updated name: ${this.user.getName()}, date of birth: ${this.user.getDateOfBirth()}")
         updateUserInfoText()
     }
 
     private fun updateUserInfoText() {
-        userInfo.set("Name: ${name.get()}, Date of Birth: ${dateOfBirth.get()}")
+        userInfo.set("Name: ${name.get()}, Date of Birth: ${dateOfBirth}")
         Log.d("UserViewModel", "Updated user info: ${userInfo.get()}")
     }
 
